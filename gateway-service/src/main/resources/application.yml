@@ -1,0 +1,43 @@
+server:
+  port: 8082
+
+eureka:
+    client:
+        service-url:
+            defaultZone: http://localhost:8801/eureka/
+
+spring:
+  application:
+    name: service-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+      routes:
+        #认证服务路由
+        - id: auth-service
+          predicates:
+            - Path=/auth-service/**
+          uri: lb://auth-service
+          filters:
+            - StripPrefix=1
+        - id: api-service
+          predicates:
+            - Path=/api-service/**
+          uri: lb://api-service
+          filters:
+            - StripPrefix=1
+  redis:
+    database: 0
+    host: localhost
+    lettuce:
+        pool:
+            max-active: 100
+            max-idle: 8
+            max-wait: '-1ms'
+            min-idle: 0
+    port: 8379
+    timeout: '3000ms'
+    password: 

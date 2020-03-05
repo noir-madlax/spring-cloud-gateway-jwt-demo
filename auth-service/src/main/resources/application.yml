@@ -1,0 +1,22 @@
+
+eureka:
+    client:
+        service-url:
+            defaultZone: http://localhost:8801/eureka/
+server:
+    port: 8081
+spring:
+    application:
+        name: 'auth-service'
+    redis:
+        database: 0
+        host: localhost
+        lettuce:
+            pool:
+                max-active: 100
+                max-idle: 8
+                max-wait: '-1ms'
+                min-idle: 0
+        port: 8379
+        timeout: '3000ms'
+        password: 
